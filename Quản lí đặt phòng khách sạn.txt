@@ -1,0 +1,48 @@
+Thực thể và thuộc tính chính
+
+Hotel
+	hotel_id (PK)
+	name, address, stars, description, manager
+
+Room
+	room_id (PK)
+	type, price_per_night, status, capacity
+	hotel_id (FK → Hotel)
+
+Customer
+	customer_id (PK)
+	full_name, email, phone, nationality
+
+Booking
+
+	booking_id (PK)
+	booking_date, check_in, check_out, total_amount, status
+	customer_id (FK → Customer)
+
+Payment
+
+	payment_id (PK)
+	method, payment_date, amount, status
+	booking_id (FK → Booking)
+
+Review
+
+	review_id (PK)
+	rating, comment, review_date
+	customer_id (FK → Customer)
+	hotel_id (FK → Hotel)
+
+BookingRoom (thực thể trung gian cho quan hệ n–n giữa Booking và Room)
+
+	booking_room_id (PK)
+	booking_id (FK → Booking)
+	room_id (FK → Room)
+
+Mối quan hệ:
+
++ Khách sạn – Phòng: một khách sạn có thể có nhiều phòng, một phòng chỉ thuộc về một khách sạn (1-n).
++ Khách hàng – Đặt phòng: một khách hàng có thể đặt nhiều booking, một booking chỉ thuộc về một khách hàng (1-n).
++ Đặt phòng – Phòng: một booking có thể gồm nhiều phòng, một phòng có thể xuất hiện trong nhiều booking (n-n).
+	(Thực thể trung gian BookingRoom: một booking có nhiều chi tiết phòng (1-n), một chi tiết phòng chỉ 	thuộc về một booking; đồng thời một chi tiết phòng liên kết với một phòng cụ thể (1-n)).
++ Đặt phòng – Thanh toán: một booking có đúng một thanh toán, một thanh toán chỉ gắn với một booking (1-1).
++ Khách hàng – Đánh giá – Khách sạn: một khách hàng có thể viết nhiều đánh giá cho các khách sạn đã từng ở, một khách sạn có thể nhận nhiều đánh giá từ nhiều khách hàng (n-n, qua thực thể Review).
